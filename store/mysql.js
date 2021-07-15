@@ -62,22 +62,45 @@ function insert(table, data) {
     })
 }
 
-function update(table, data) {
+ function update(table, data) {
+     return new Promise((resolve, reject) => {
+         connection.query(`UPDATE ${table} SET ? WHERE id=?`, [data, data.id], (err, result) => {
+             if (err) return reject(err);
+             resolve(result);
+         })
+     })
+ }
+
+function remove(table, id) {
     return new Promise((resolve, reject) => {
-        connection.query(`UPDATE ${table} SET ? WHERE id=?`, [data, data.id], (err, result) => {
+        connection.query(`DELETE FROM ${table}  WHERE id=${id}`, (err, data) => {
             if (err) return reject(err);
-            resolve(result);
+            resolve(data);
         })
     })
 }
 
-function upsert(table, data) {
-    if (data && data.id) {
-        return update(table, data);
+// function remove(table, table2, id) {
+//     return new Promise((resolve, reject) => {
+//         connection.query(`DELETE FROM ${table}   WHERE id=${id}`, (err, data) => {
+//             if (err) return reject(err);
+//             resolve(data);
+//         })
+//     })
+// }
+ 
+
+
+
+// FUNCIÓN upsert 
+async function upsert(table, data) {
+    const row = await get(table, data.id);
+    if (row.length === 0) {
+      return insert(table, data);
     } else {
-        return insert(table, data);
+      return update(table, data);
     }
-}
+  }
 
 function query(table, query) {
     return new Promise((resolve, reject) => {
@@ -92,5 +115,8 @@ module.exports = {
     list,
     get,
     upsert,
-    query
+    query,
+    remove,
+    
+
 };

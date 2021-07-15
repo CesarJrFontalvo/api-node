@@ -1,9 +1,9 @@
 {
     "swagger": "2.0",
     "info": {
-      "description": "Una red social en NodeJS",
+      "description": "Una API creada con NodeJS y MySQL, donde tendremos las funciones de un crud con auntentificación de usuario.",
       "version": "1.0.0",
-      "title": "RedSocialNode"
+      "title": "Api-NodeJS"
     },
     "host": "localhost:3000",
     "basePath": "/api",
