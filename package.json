@@ -15,9 +15,10 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "nanoid": "^3.1.23",
-    "swagger-ui-express": "^4.1.6"
+    "swagger-ui-express": "^4.1.6",
+    "update": "^0.7.4"
   },
   "devDependencies": {
-    "nodemon": "^2.0.9"
+    "nodemon": "^2.0.12"
   }
 }

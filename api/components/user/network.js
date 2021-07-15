@@ -45,7 +45,8 @@ function upsert(req, res, next) {
 function remove(req, res, next) {
     Controller.remove(req.params.id)
         .then((user) => {
-            response.success(req, res, user,  200);
+            //response.success(req, res, user,  200);
+            res.status(200).send({msg: 'El usuario se ha eliminado correctamente !!'})
         })
         .catch(next);
 }
