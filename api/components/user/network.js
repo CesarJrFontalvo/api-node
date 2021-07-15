@@ -3,14 +3,18 @@ const express = require('express');
 const secure = require('./secure');
 const response = require('../../../network/response');
 const Controller = require('./index');
+const auth = require('../auth');
+
+
 
 const router = express.Router();
 
 // Routes
-router.get('/', list)
+router.get('/', list);
 router.get('/:id', get);
 router.post('/', upsert);
 router.put('/', secure('update'), upsert);
+router.delete('/:id', remove);
 
 // Internal functions
 function list(req, res, next) {
@@ -37,4 +41,13 @@ function upsert(req, res, next) {
         .catch(next);
 }
 
+
+function remove(req, res, next) {
+    Controller.remove(req.params.id)
+        .then((user) => {
+            //response.success(req, res, user,  200);
+            res.status(200).send({msg: 'El usuario se ha eliminado correctamente !!'})
+        })
+        .catch(next);
+}
 module.exports = router;
